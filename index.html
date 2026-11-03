@@ -22,12 +22,13 @@ function pubStale() {
     var age = Date.now() / 1000 - at;
     if (age > 900) { b.classList.add('on'); b.innerHTML = '<b>No new data since ' + tFI(at) + ' ' + TZW() + '</b> (' + Math.round(age / 60) + ' min ago). The page keeps checking.'; }
   } catch (e) {}
+  try { var f = document.getElementById('footer'); if (f && !f.textContent) f.innerHTML = '<span class="muted">' + PUB_NOTE + '</span>'; } catch (e) {}
   // the page's version on the site (status.json's 'page', written by the push job; the page's snapshot mode reads no status)
   try { fetch('/status.json', {cache: 'no-cache'}).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j) pubVersion(j.page); }).catch(function () {}); } catch (e) {}
 }
 // a newer version of this page on the site: reload, at once if the page is in view, else when it next comes into view; at
 // most once per version every 10 minutes (a browser may hand back its cached copy for up to 10 minutes)
-var PAGE_BUILD = 'c9d71a7aa43d';
+var PAGE_BUILD = '439fda75c2be', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
 function pubVersion(want) {
   try {
     if (!want || want === PAGE_BUILD || pubVersion.waiting) return;
@@ -6417,7 +6418,9 @@ async function loadCounties() {
     } catch (e) {
         console.error("county data", e);
     }
-    pollCounties();
+    pollCounties().then((() => {
+        if (M) render();
+    }));
     setInterval(pollCounties, 6e4);
 }
 
