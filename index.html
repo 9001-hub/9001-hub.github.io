@@ -41,7 +41,7 @@ function pubStale() {
 }
 // a newer version of this page on the site: reload, at once if the page is in view, else when it next comes into view; at
 // most once per version every 10 minutes (a browser may hand back its cached copy for up to 10 minutes)
-var PAGE_BUILD = '4206e2c0c6d6', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
+var PAGE_BUILD = '31900dd84531', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
 function pubVersion(want) {
   try {
     if (!want || want === PAGE_BUILD || pubVersion.waiting) return;
@@ -109,6 +109,7 @@ a.link { color: var(--text-2); text-decoration: underline dotted; text-underline
 #feedtxt { display: inline-flex; gap: 6px; align-items: center; }
 span.statpill { color: var(--text-2); cursor: default; }
 .tip:has(.tt-wide) { max-width: 480px; } .tip .tt-wide table.tt td:last-child { white-space: nowrap; }
+.tip .tt-fit { display: inline-block; vertical-align: top; max-width: 100%; } .tip .tt-fit > .tt-n { width: 0; min-width: 100%; }
 .tip .tt-blk + .tt-blk { border-top: 1px solid var(--line); margin-top: 7px; padding-top: 6px; }
 .tip .tt-src { margin-top: 3px; } .tip .tt-src .dot { margin-right: 5px; }
 
@@ -155,6 +156,7 @@ span.statpill { color: var(--text-2); cursor: default; }
 .track > .fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; }
 .track > .tick { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--c-ink); border-radius: 1px; }
 .track > .mid { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--text-3); opacity: .6; }
+.track > .tw { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; padding: 0 6px; background: var(--surface); color: var(--text-3); font-size: 11px; line-height: 14px; white-space: nowrap; }      
 .twoway { display: flex; height: 12px; border-radius: 6px; overflow: hidden; gap: 2px; margin-bottom: 4px; }
 .twoway div { height: 100%; }
 .twoway-lab { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-2); margin-bottom: 4px; }
@@ -288,7 +290,9 @@ span.statpill { color: var(--text-2); cursor: default; }
 .readout input { margin: 0; }
 .chart { position: relative; width: 100%; touch-action: pan-y; }
 .chart svg { display: block; width: 100%; overflow: visible; }
-.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; color: var(--text-2); box-shadow: 0 2px 10px rgba(0,0,0,.12); max-width: 320px; display: none; z-index: 30; }
+.tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; color: var(--text-2); box-shadow: 0 2px 10px rgba(0,0,0,.12); max-width: 360px; display: none; z-index: 30; }
+.tip table.tt4 td { white-space: nowrap; padding: 1px 0 1px 12px; text-align: right; color: var(--text); } .tip table.tt4 td:first-child { padding-left: 0; text-align: left; color: var(--text-3); } .tip table.tt4 tr.th td { color: var(--text-3); }
+.tip .tt-why { color: var(--text-2); margin-top: 3px; } .tip .tt-why b { color: var(--serious); font-weight: 600; }
 .tip b { color: var(--text); }
 .tip .tt-h { font-weight: 600; color: var(--text); margin-bottom: 3px; }
 .tip table.tt { width: auto; border-collapse: collapse; font-size: 12px; }
@@ -529,8 +533,8 @@ body.tabs #races-card.tgrid.one .rtwrap { overflow: hidden; display: flex; flex-
 #rmode { align-self: flex-end; display: inline-flex; gap: 0; padding-bottom: 11px; font-size: 12px; white-space: nowrap; margin-left: auto; padding-left: 16px; }      
 #rmode button { background: none; border: 0; padding: 0; font: inherit; color: var(--text-3); cursor: pointer; } #rmode button.on { color: var(--text); font-weight: 600; }
 #rmode .rm-k { color: var(--text-3); margin-right: 6px; } #rmode button + button::before { content: '·'; margin: 0 6px; color: var(--text-3); font-weight: 400; } #rfilt .rf-more { margin-left: 4px; color: var(--text-3); font-weight: 400; }
-#rfilt .rf-gl { align-self: flex-end; padding-bottom: 11px; font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-3); margin-right: -6px; cursor: pointer; white-space: nowrap; }
-#rfilt .rf-sep { align-self: flex-end; width: 1px; height: 14px; margin: 0 -2px 12px; background: var(--line-2, var(--line)); flex: none; } #rfilt button.zero:not(.on) { color: var(--text-3); }
+#rfilt .rf-gl { align-self: flex-end; padding-bottom: 7px; font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-3); margin-right: -6px; cursor: pointer; white-space: nowrap; }
+#rfilt .rf-sep { align-self: flex-end; width: 1px; height: 14px; margin: 0 -2px 8px; background: var(--line-2, var(--line)); flex: none; } #rfilt button.zero:not(.on) { color: var(--text-3); }
 .colbtn { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; padding: 0; margin-left: 4px;
   border: 0; border-radius: 4px; background: var(--surface-2); color: var(--text-2); font: 600 12px/1 inherit; cursor: pointer; vertical-align: -2px; }
 .colbtn:hover, .colbtn[aria-expanded="true"] { color: var(--text); background: var(--line); }
@@ -788,6 +792,7 @@ body.tabs #sec-notes { overflow: auto; overscroll-behavior: contain; }
 .ncard { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
 .ncard > .chart { grid-row: 3; grid-column: 1; margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--grid); }
 .ncard .ntile { display: flex; flex-direction: column; min-height: 0; }
+
 .ncard .readout { grid-row: 4; grid-column: 1; margin: 2px 0 0 44px; justify-content: flex-start; flex-wrap: nowrap; white-space: nowrap; overflow: hidden;
   font-size: 12px; gap: 0 12px; min-width: 0; color: var(--text-2); }
 .ncard .readout > span, .rd-leg > span { white-space: nowrap; }
@@ -992,7 +997,7 @@ header.tight2 #span .twl { display: none; } header.tight3 #feedtxt .fw { display
 
 body.look-light { --bg: var(--surface); }
 body.look-light .card { background: none; border: 0; border-radius: 0; padding: 0; box-shadow: none; }
-body.look-light .card-head, body.look-light #races-card.tgrid > .card-head { border-bottom: 1px solid var(--line); padding: 0 0 5px; margin: 0 0 8px; min-height: 28px; }
+body.look-light .card-head, body.look-light #races-card.tgrid > .card-head { border-bottom: 1px solid var(--line); padding: 0 0 5px; margin: 0 0 9px; min-height: 32px; }      
 body.look-light .card-head .seg:not(#span) { align-self: stretch; align-items: flex-end; margin-bottom: -6px; }
 body.look-light .card-head .seg:not(#span) button { padding: 0 0 9px; }
 
@@ -1281,11 +1286,11 @@ header #secnav { margin-left: 22px; }
 #feeds #mode { gap: 0; } #feeds #feedtxt { display: inline-flex; }
 #viewbtn .ndot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--serious); margin-left: 5px; vertical-align: 1px; } #viewbtn .ndot[hidden] { display: none; }
 
-.card > .vband { display: flex; align-items: flex-end; gap: 14px; border-bottom: 1px solid var(--line); min-height: 40px; margin-bottom: 10px; flex: none; }
-.card > .vband .vb-k { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-2); padding-bottom: 11px; flex: none; }
+.card > .vband { display: flex; align-items: flex-end; gap: 14px; border-bottom: 1px solid var(--line); min-height: 32px; margin-bottom: 9px; flex: none; }
+.card > .vband .vb-k { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text-2); padding-bottom: 8px; flex: none; }
 .card > .vband > .seg { align-self: stretch; align-items: flex-end; margin: 0 0 -1px; gap: 18px; flex: none; }
-body.look-light .card > .vband > .seg:not(#span):not(#fk-sp) button { font-size: 14px; padding: 0 0 9px; border-bottom-width: 2px; white-space: nowrap; }
-#vote-card > .vband .vb-d { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-2); padding-bottom: 10px; white-space: nowrap; min-width: 0; overflow: hidden; }
+body.look-light .card > .vband > .seg:not(#span):not(#fk-sp) button { font-size: 14px; padding: 0 0 7px; border-bottom-width: 2px; white-space: nowrap; }
+#vote-card > .vband .vb-d { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-2); padding-bottom: 7px; white-space: nowrap; min-width: 0; overflow: hidden; }
 #vote-card > .vband .vtitle { margin: 0; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 #vote-card > .vband .vlegend { margin: 0; flex-wrap: nowrap; flex: none; gap: 10px; }
 #vote-card > .vband .vlegend .ramp { width: 120px; }
@@ -1316,9 +1321,10 @@ body.tabs #races-card.tgrid #calls-card { grid-column: 2; grid-row: 3; }
 body.tabs #races-card.tgrid .rtwrap { grid-column: 1; grid-row: 2 / 4; }
 body.tabs #races-card.tgrid.one > .vband { display: none; }
 #rmode { display: none !important; }
-body.look-light #races-card.tgrid > .card-head { min-height: 40px; margin: 0 0 10px; align-items: flex-end; padding-bottom: 11px; box-sizing: border-box; }
+body.look-light #races-card.tgrid > .card-head { min-height: 32px; margin: 0 0 9px; align-items: flex-end; padding-bottom: 8px; box-sizing: border-box; }
 body.look-light #races-card.tgrid > .card-head h2 { line-height: 1; }
-body.look-light #races-card.tgrid .rt-h { height: 40px; margin: 0 0 10px; }
+body.look-light #races-card.tgrid .rt-h { height: 32px; margin: 0 0 9px; }
+body.look-light .ncard > .card-head, body.look-light #ov-band .card-head { margin-bottom: 6px; }      
 body.look-light #races-card.tgrid > .vband { padding-right: 16px; }
 </style>
 </head>
@@ -1481,7 +1487,7 @@ body.look-light #races-card.tgrid > .vband { padding-right: 16px; }
       <dd>
         <p>Which way the night is moving, from −3 (strongly toward Republicans) to +3 (strongly toward Democrats), over the last 15 minutes in the 2-hour view, the last hour in Tonight (12 h before the night) and the last 24 hours in 7 days. It averages two parts with equal weight, each the change over the window scored against how much that series normally moves:</p>
         <p><b>Markets</b>: the Polymarket Senate control price. <b>Model</b>: the change in the model's chance of control, against how far a calibrated model should move given what was counted in the window; it starts after the first polls close, so before then momentum is the markets alone.</p>
-        <p>Each part is capped at ±3. It stays off until it has a full window of live data, so a pause or a wild first count never becomes the baseline, and a market part also waits until there is enough history to know how much that price normally moves (about 45 minutes for the 15-minute window, 3 hours for the hour, 3 days for 24 hours: the markets' price history from before this service started covers it). In 7 days the model part starts a full day after the first polls close, so on election night that view is the markets alone. Under ±0.5 reads "No clear direction", 0.5 to 1.5 "Leaning to …", and 1.5 or more "Strongly to …".</p>
+        <p>Each part is capped at ±3. It stays off until it has a full window of live data, so a pause or a wild first count never becomes the baseline, and a market part also waits until there is enough history to know how much that price normally moves (about 45 minutes for the 15-minute window, 3 hours for the hour, 3 days for 24 hours: the markets' price history from before this service started covers it). In 7 days the model part starts a full day after the first polls close, so on election night that view is the markets alone. The chart shows the two parts over time, Markets in amber and Model in black; the score above is their average. Under ±0.5 reads "No clear direction", 0.5 to 1.5 "Leaning to …", and 1.5 or more "Strongly to …".</p>
       </dd>
       <dt id="note-map">Map</dt>
       <dd><p>A tile map of the 35 races: one square per state, every seat the same size, roughly where the state is. Colour shows who is ahead and how sure: blue for the Democrat (teal for an independent: Osborn in Nebraska; Idaho, Montana and South Dakota among the safe seats), red for the Republican, deeper the surer, on a continuous scale up to about three-quarters of the party colour, so the text reads on every tile (the legend shows samples of it). For the 17 races the model projects it is the model's chance; for the 18 seats the model takes as given it is Polymarket's, on the same scale. The corner, in the colour of the party holding the seat, marks a race changing hands (Flipping or Flipped). A called race goes a touch deeper, with dark lines across it and a tick. The race you have open is outlined outside its square. Each square also shows the favourite's chance, a faint bar along the bottom for the share counted (on a fainter track once the count starts), and "!" for a warning (calls that disagree, a data check, drift, or a safe seat whose party trails or has lost it). States with no race this year are left blank. The choices in the RACES band turn the states outside the choice a flat grey, with only their letters; All, the default, shows every state. Hovering a state lights up its row in the table and the other way round; clicking a state opens the race, clicking it again closes it. The strip of races under Democratic control on the National tab uses the same colours.</p></dd>
@@ -1762,7 +1768,7 @@ const KEY = [ "ME", "NC", "TX", "OH", "IA", "MI", "AK", "KS", "NE", "NH", "MN" ]
 
 const OTHER = [ "GA", "SC", "FL", "MS", "KY", "VA" ];
 
-const COMP = [ [ "market", "Markets", "--c-market" ], [ "model", "Model", "--c-model" ] ];
+const COMP = [ [ "market", "Markets", "--c-market" ], [ "model", "Model", "--c-ink" ] ];
 
 const STATE_NAME = {
     AK: "Alaska",
@@ -1785,13 +1791,13 @@ const STATE_NAME = {
 };
 
 const NOTE_TIP = {
-    control: "Chance of 51+ seats, with Osborn counted as a Democrat. At 50 the Vice President gives Republicans control. Amber marker: the markets. Squares: the 17 modelled races (the 18 not modelled count as held), ticked once called, otherwise shaded by who leads; Democrats need every race left of the dashed line. Markets settle on a slightly narrower event.",
+    control: "Chance of 51+ seats, with Osborn counted as a Democrat (at 50 the Vice President gives Republicans control). Amber marker: the markets. Squares: the 17 modelled races, ticked once called; Democrats need every race left of the dashed line.",
     seats: "Democratic seats including Osborn. 42 are not up or safe; the 17 races the model follows decide the rest.",
     nat: "How far the counted votes, taken together, run from the polls. Dots are single races; the band is the 90% range.",
     mom: "Which way the markets and the model have moved over the window (the last 15 minutes, hour or 24 hours, by the Charts setting), scored against how much they normally move. Positive is toward Democrats.",
-    night: "The night race by race, in the order polls close. Each column is tinted in the leader’s colour, deeper the surer (the model’s chance; the market’s for a race the model does not cover), and fills from the bottom as the vote is counted; once called it takes the winner’s colour with lines. A corner marks a seat changing hands; an outline, a race that could tip control. The codes and hours underneath fade by the polls: faint still open, grey the next to close, darker closed; a called state’s code bold. Hover a column for the race; click to open it.",
+    night: "The night race by race, in the order polls close. Each column is in the leader’s colour, deeper the surer, and fills from the bottom as votes are counted; lines once called. A corner: a seat changing hands. An outline: a race that could tip control. Hover a column for the race; click to open it.",
     map: "The model’s chance for the 17 races it projects; Polymarket’s for the 18 seats it takes as given. The colour is the leader’s, deeper the surer. Lines and ✓: called · corner: changing hands · bar: share counted · ! a warning. Click a state to open its race.",
-    races: "All 35 races, in one of two families. Now: Uncalled (Flipping, Close, Leaning, Clear: the challenger’s chance 50%+, 10–50%, 2–10%, under 2%) and Called (Flipped, Held). Before results: Toss-up, Lean, Likely, Solid, with Upsets and Surprises. Click a race for its detail.",
+    races: "All 35 races. Now: Uncalled (Flipping, Close, Leaning, Clear) and Called (Flipped, Held). Before results: Toss-up, Lean, Likely, Solid, with Upsets and Surprises. Click a race for its detail.",
     race: "One race: its chance and margin through the night, what is left to count and of which kind, what the trailing candidate needs, where the votes still out are, and its events at the foot. Counties → shows its counties.",
     calls: "Who has called each race and when: the model and CivicAPI side by side, newest first; calls that disagree, safe seats lost and withdrawn calls on top.",
     events: "Calls, warnings, poll closings, first votes and sources failing for 3 minutes or more, newest first. The tabs filter by kind; click a state named in an event for its events only.",
@@ -1888,7 +1894,15 @@ const hideTip = () => {
     tip.style.display = "none";
 };
 
-const ttl = (title, rows, foot) => `<div class="tt-h">${title}</div><table class="tt">${rows.map((([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`)).join("")}</table>` + (foot ? `<div class="tt-n">${foot}</div>` : "");
+const ttFit = foot => {
+    const n = String(foot || "").replace(/<[^>]*>/g, "").length, w = Math.round(n < 90 ? n * 3.3 + 30 : n * 2.1);
+    return w > 340 ? null : Math.max(180, w);
+};
+
+const ttl = (title, rows, foot) => {
+    const fw = foot ? ttFit(foot) : 0;
+    return (fw === null ? "<div>" : `<div class="tt-fit" style="min-width:${fw}px">`) + `<div class="tt-h">${title}</div><table class="tt">${rows.map((([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`)).join("")}</table>` + (foot ? `<div class="tt-n">${foot}</div>` : "") + "</div>";
+};
 
 const tipT = (head, body, foot) => `<div class="tt-h">${head}</div>${body ? `<div>${body}</div>` : ""}${foot ? `<div class="tt-n">${foot}</div>` : ""}`;
 
@@ -1947,21 +1961,21 @@ $("#span").dataset.tip = tipT("Chart span", "The time span of the charts: Nation
 
 const HEAD_TIP = {
     name: [ "Race", "State and the two main candidates. Click a row to open the race in detail." ],
-    counted: [ "Counted", "Share of the expected vote counted, and how many reporting units have votes. The bar: dark grey, the share counted if the vote ends at the top of its expected range; mid grey, how much more it is if the vote ends at the bottom; light, still to count (hover a race for the figures). Safe seats: CivicAPI's share of precincts reporting." ],
+    counted: [ "Counted", "Share of the expected vote counted, and the reporting units with votes. Bar: dark grey, counted if the vote ends at the top of its range; mid grey, the extra if it ends at the bottom; light, still to count. Safe seats: CivicAPI's precincts reporting." ],
     expected: [ "Votes", "Votes counted, of the expected total (its range), and what is still out by vote type. Safe seats: votes counted." ],
-    margin: [ "Margin", "Projected final margin with its 90% range; the grey tick is the poll average. Safe seats: the margin counted so far, no projection. + adds how far the projection has moved, or how volatile it has been, in place of the range, and sorts by it." ],
+    margin: [ "Margin", "Projected final margin with its 90% range; the grey tick is the poll average. Safe seats: the margin so far. + swaps the range for how far the projection has moved (or how volatile it has been) and sorts by it." ],
     vspolls: [ "vs polls", "Projected margin minus the pre-election poll average (once votes are counted)." ],
-    pwin: [ "Chance", 'The model\'s chance for the candidate ahead. Sorting (▼): all 35 races by the leader\'s chance, lowest first: the closest to 50% first whichever side leads (the model\'s chance for a modelled race, Polymarket\'s for a seat the model takes as given), called races last. Polymarket\'s chance shows under it ("market D 72%") when it favours the other side or is 15 points or more from the model\'s, as in What stands out; the 18 seats the model takes as given show Polymarket\'s chance ("market R 98%"). Once called: "Called R" (by the model or CivicAPI; "Disputed" when they call different winners). ▲: the least close first.' ],
+    pwin: [ "Chance", 'The model\'s chance for the candidate ahead (Polymarket\'s for the 18 seats it takes as given). Under it, the market\'s when it favours the other side or is 15 points or more away. Once called: "Called R" ("Disputed" when the model and CivicAPI differ). Sorted: the closest race first, called races last.' ],
     market: [ "Market", "Polymarket's price for the candidate it favours, as a chance. Shown for comparison; never used in the projection. + adds how far the price has moved, or how volatile it has been, and sorts by it." ],
-    decides: [ "Tipping point", "Chance this race is the one that tips control: line the races up from most to least Democratic; Democrats need 9 of the 17 modelled races, so the 9th is the tipping point. Adds up to 100% across the races." ],
-    rating: [ "Forecasters", "The 12 forecasters' middle rating as of 3 November (between two, the firmer): Toss-up, Lean, Likely or Solid, and the side. An arrow to the other side when the race is going the other way: that side ahead now (the model's chance, or Polymarket's for a seat not modelled), bold once it is called for that side. The table's default order: toss-up to solid (▼), or solid to toss-up (▲); within a rating, the closest race first, as Chance sorts. The band's Surprises lists the races going the other way. (In place of the Tipping column since 2 Nov; a race's tipping chance is in the Chance hover.)" ],
+    decides: [ "Tipping point", "Chance this race tips control: with the 17 modelled races lined up from most to least Democratic, the 9th decides it. Adds up to 100%." ],
+    rating: [ "Forecasters", "The 12 forecasters' middle rating as of 3 November: Toss-up, Lean, Likely or Solid. An arrow when the race is going the other way (bold once called that way). The default order: toss-up to solid, the closest race first within a rating. A race's tipping chance is in its Chance hover." ],
     call: [ "Call", "Who has called the race: the model (99.5%, the count alone agreeing, at least 20% counted, no drift warning, the data check passed, held 15 minutes) and/or CivicAPI." ]
 };
 
 for (const th of document.querySelectorAll(".rtable th[data-sort]")) {
     const h = HEAD_TIP[th.dataset.sort];
     th.removeAttribute("title");
-    if (h) th.dataset.tip = tipT(h[0], h[1], th.dataset.sort === "rating" ? "The default order (▼). Click to reverse (▲); again for the default." : "Click to sort (▼, its usual order); again to reverse (▲); a third time for the default (Forecasters, toss-up to solid).");
+    if (h) th.dataset.tip = tipT(h[0], h[1], th.dataset.sort === "rating" ? "The default order. Click to reverse." : "Click to sort; again to reverse; a third time for the default.");
 }
 
 try {
@@ -2457,7 +2471,7 @@ function renderControl(S) {
     const sg = v => v == null ? "–" : (v > .05 ? "+" : v < -.05 ? "−" : "") + (Math.abs(v - Math.round(v)) < .05 ? Math.abs(Math.round(v)) : Math.abs(v).toFixed(1));
     const tail = `<span class="muted">${expNet != null && need > 0 && need <= open.length ? ` · expected ${sg(expNet)}` : ""}</span>`;
     const flTxt = FL.length ? FL.map((([r, g]) => `<span class="${g === "R" ? "r" : g === "I" ? "i" : "d"}">${esc(STNAME[r] || r)} (${g})</span>`)).join(", ") : "none yet";
-    const netTip = ttl("Seats changing hands", [ [ "Before the election", `Democrats ${nowD}, Republicans ${100 - nowD}` ], [ "Democrats need", `a net gain of ${netNeed}, for 51 (at 50 the Vice President gives Republicans control)` ], [ "In races", `${need > 0 && need <= open.length ? `${need} of the ${open.length} modelled ${dWon.length + rWon.length ? "races left" : "races"}` : "–"}` ], [ "Expected", expNet == null ? "–" : `${sg(expNet)} <span class="muted">(${S.mean_seats.toFixed(1)} seats)</span>` ], [ "Flipped so far", flTxt ], ...FL.length ? [ [ "Net so far", sg(net) ] ] : [] ], "Osborn counted with the Democrats. A flip: a seat called for a party that did not hold it (the model's call, or CivicAPI's).");
+    const netTip = ttl("Seats changing hands", [ [ "Before the election", `Democrats ${nowD}, Republicans ${100 - nowD}` ], [ "Democrats need", `+${netNeed} <span class="muted">for 51</span>` ], [ "In races", `${need > 0 && need <= open.length ? `${need} of ${open.length} <span class="muted">${dWon.length + rWon.length ? "left" : "modelled"}</span>` : "–"}` ], [ "Expected", expNet == null ? "–" : `${sg(expNet)} <span class="muted">(${S.mean_seats.toFixed(1)} seats)</span>` ], [ "Flipped so far", flTxt ], ...FL.length ? [ [ "Net so far", sg(net) ] ] : [] ], "At 50 the Vice President gives Republicans control. Osborn counted with the Democrats. A flip: a seat called for a party that did not hold it.");
     const done = FL.length ? `<span class="muted"> · net gain ${sg(net)}</span>` : "";
     let txt = need <= 0 ? `<b>Democrats have 51 seats</b>${done}` : need > open.length ? `<b>Republicans have control</b>${done}` : FL.length ? `<span${dtip(netTip)}>Net gain <b>${sg(net)}</b> of the ${netNeed} needed${tail}</span>` : `<span${dtip(netTip)}>Democrats need a net gain of <b>${netNeed}</b>${tail}</span>`;
     if (need <= 0 || need > open.length) txt = `<span${dtip(netTip)}>${txt}</span>`;
@@ -2542,7 +2556,14 @@ function renderNatTile() {
     if (sn.length > 1) {
         $("#nat-src").innerHTML = (live ? "Following " : "Starting from ") + sn.map((k => `${esc(SHORT[k] || k)} <b>${pct(SR.now[k])}</b>`)).join(" · ");
         const asofD = d => /^\d{4}-\d{2}-\d{2}$/.test(d) ? fmtDay.format(new Date(d + "T12:00:00Z")) : d;
-        $("#nat-src").dataset.tip = ttl("Weight of each starting point", [ [ "", '<span class="muted">before the count → now</span>' ], ...sn.map((k => [ esc(k === "polls" ? "Poll average" : SHORT[k] || k) + ((SR.asof || {})[k] ? ` <span class="muted">${esc(asofD(SR.asof[k]))}</span>` : ""), `${pct(SR.start[k])} → <b>${pct(SR.now[k])}</b>` ])) ], "Once votes are counted, each starting point is weighted by how well its margins have predicted the counts so far.");
+        const ed = k => {
+            const a = (SR.asof || {})[k];
+            if (!a) return "";
+            const m = /^(\d{4}-\d{2}-\d{2})\s*(.*)$/.exec(a);
+            return m ? (m[2] ? m[2] + ", " : "") + asofD(m[1]) : a;
+        };
+        const eds = sn.filter((k => k !== "polls" && ed(k))).map((k => `${esc(SHORT[k] || k)}: ${esc(ed(k))}.`)).join(" ");
+        $("#nat-src").dataset.tip = ttl("Weight of each starting point", [ [ "", '<span class="muted">before the count → now</span>' ], ...sn.map((k => [ esc(k === "polls" ? "Poll average" : SHORT[k] || k), `${pct(SR.start[k])} → <b>${pct(SR.now[k])}</b>` ])) ], (eds ? eds + " " : "") + "Once votes are counted, each is weighted by how well it has predicted the counts so far.");
     } else {
         $("#nat-src").innerHTML = "";
         delete $("#nat-src").dataset.tip;
@@ -2774,16 +2795,27 @@ function renderMomTile() {
         cx: x(s),
         cy: 16,
         r: 7,
-        fill: sideCol(s, .5),
+        fill: Math.abs(s) < .5 ? css("--text-3") : sideCol(s, .5),
         stroke: css("--surface"),
         "stroke-width": 2.5
     }, svg);
+    const cl = Object.values(M.close || {}).filter(Boolean), mFrom = cl.length ? Math.min(...cl) + (+win || 900) : null, nowT = (M.clock || {}).now || Date.now() / 1e3;
+    const waitTxt = k => k === "model" && mFrom && nowT < mFrom ? "starts " + (+win >= 86400 ? fmtDay.format(new Date(mFrom * 1e3)) : tHM(mFrom)) : "waiting";
     let h = "";
     for (const [k, lab, col] of COMP) {
         const v = now ? now.c[k] : null, on = enabled[k] && v != null, w = on ? Math.abs(v) / 3 * 50 : 0;
-        h += `<span><i class="sw" style="background:var(${col})"></i>${lab}</span><div class="track">${on ? `<div class="fill" style="${v >= 0 ? "left:50%" : "left:" + (50 - w) + "%"};width:${w}%;background:var(${col})"></div>` : ""}<div class="mid" style="left:50%"></div></div>` + `<b class="${on ? "" : "muted"}" style="${on ? "" : "font-weight:400"}">${v == null ? "waiting" : sgnM(v, 1)}</b>`;
+        h += `<span><i class="sw" style="background:var(${col})"></i>${lab}</span><div class="track">${on ? `<div class="fill" style="${v >= 0 ? "left:50%" : "left:" + (50 - w) + "%"};width:${w}%;background:var(${col})"></div>` : ""}<div class="mid" style="left:50%"></div>${v == null ? `<span class="tw">${waitTxt(k)}</span>` : ""}</div>` + `<b class="${on ? "" : "muted"}" style="${on ? "" : "font-weight:400"}">${v == null ? "–" : sgnM(v, 1)}</b>`;
     }
     $("#v-comps").innerHTML = h;
+    const two = $("#two"), gs = box.querySelector("svg");
+    box.style.marginTop = "0px";
+    if (two && gs && two.getClientRects().length) {
+        const ca = two.closest(".card").getBoundingClientRect(), cb = box.closest(".card").getBoundingClientRect();
+        if (Math.abs(ca.top - cb.top) < 2) {
+            const d = Math.round(two.getBoundingClientRect().top - (gs.getBoundingClientRect().top + 10));
+            if (d > 0 && d < 160) box.style.marginTop = d + "px";
+        }
+    }
 }
 
 function nightStart() {
@@ -2964,14 +2996,7 @@ function renderHistory() {
     for (const [k, , col] of COMP) if (enabled[k]) ser.push({
         pts: MH.map((h => [ h.t, h.c[k] ])),
         color: css(col),
-        width: 1.3,
-        opacity: .9
-    });
-    const mComb = MH.map((h => [ h.t, combine(h.c) ]));
-    ser.push({
-        pts: mComb,
-        color: css("--c-ink"),
-        width: 2.4,
+        width: 2,
         dot: true
     });
     timeChart($("#c-mom"), {
@@ -2995,17 +3020,13 @@ function renderHistory() {
             fill: css("--rep-soft")
         } ],
         series: ser,
-        caps: {
-            pts: mComb,
-            text: "3+"
-        },
         readout: (t, g) => {
             const h = t == null ? MH[MH.length - 1] : (() => {
                 const p = valueAt(MH.map((x => [ x.t, x ])), t, g);
                 return p && p[1];
             })();
             const c = h ? combine(h.c) : null, hov = t != null;
-            const parts = [ LG("--c-ink", "Score", hov ? sgnM(c, 2) : null) ];
+            const parts = [];
             for (const [k, lab, col] of COMP) if (enabled[k]) parts.push(LG(col, lab, hov ? h && h.c[k] != null ? sgnM(h.c[k], 1) : "–" : null));
             $("#r-mom").innerHTML = parts.join("");
         }
@@ -3098,7 +3119,7 @@ function render() {
     const start = `the polling averages${others ? " and other forecasts" : ""}` + (pd ? ` <span class="muted">· ${pd}</span>` : "");
     const fc = Math.min(...Object.values(M.close || {}).filter(Boolean)), fcd = new Date(fc * 1e3);
     const nxC = M.mode === "live" ? nextClose(now) : null;
-    PILLT.mode = M.warming ? ttl(M.warming.what === "races" ? "Restarted" : "Starting up", [ [ M.warming.what === "races" ? "Races back" : "Sources answered", `${M.warming.done} of ${M.warming.total}` ] ], "The service has just started. Until every source has answered once and every race has its count back, the numbers shown are from before the restart and no calls are made or withdrawn (at most 4 minutes).") : M.mode === "live" ? ttl("Counting", [ ...CNT.share != null ? [ [ "Counted", `<b>${pct(CNT.share)}</b> of the vote expected in all 35 races` ], [ "Votes", `${fmtV(CNT.c)} of about ${fmtV(CNT.e)}` ], [ "Races", `${CNT.n} of 35 counting` ] ] : [], ...nxC ? [ [ "Next polls close", `${tFI(nxC.t)} <span class="muted">· ${(nxC.races.length <= 4 ? nxC.races : nxC.races.slice(0, 3)).map((r => esc(((M.info || {})[r] || {}).name || STNAME[r] || r))).join(", ") + (nxC.races.length > 4 ? ` and ${nxC.races.length - 3} more` : "")}</span>` ] ] : [], [ "Starting point", start ] ], "Each race's projection combines its count with its starting point.") : ttl("Before results", [ [ "Votes", "none counted yet" ], [ "Chances rest on", start ], ...isFinite(fc) ? [ [ "First polls close", `${fmtDayFi.format(fcd)} ${tFI(fc)}` ] ] : [] ]);
+    PILLT.mode = M.warming ? ttl(M.warming.what === "races" ? "Restarted" : "Starting up", [ [ M.warming.what === "races" ? "Races back" : "Sources answered", `${M.warming.done} of ${M.warming.total}` ] ], "The service has just started. Until every source has answered once and every race has its count back, the numbers shown are from before the restart and no calls are made or withdrawn (at most 4 minutes).") : M.mode === "live" ? ttl("Counting", [ ...CNT.share != null ? [ [ "Counted", `<b>${pct(CNT.share)}</b> of the expected vote` ], [ "Votes", `${fmtV(CNT.c)} of about ${fmtV(CNT.e)}` ], [ "Races", `${CNT.n} of 35 counting` ] ] : [], ...nxC ? [ [ "Next polls close", `${tFI(nxC.t)} <span class="muted">· ${(nxC.races.length <= 4 ? nxC.races : nxC.races.slice(0, 3)).map((r => esc(((M.info || {})[r] || {}).name || STNAME[r] || r))).join(", ") + (nxC.races.length > 4 ? ` and ${nxC.races.length - 3} more` : "")}</span>` ] ] : [], [ "Starting point", start ] ]) : ttl("Before results", [ [ "Votes", "none counted yet" ], [ "Chances rest on", start ], ...isFinite(fc) ? [ [ "First polls close", `${fmtDayFi.format(fcd)} ${tFI(fc)}` ] ] : [] ]);
     $("#clock").innerHTML = `<b>${tFI(now)}</b> ${TZL()}`;
     fitHeader();
     renderControl(S);
@@ -3827,7 +3848,7 @@ function renderGroupsSwing(live) {
                     p24: p24[i].v,
                     p20: p20[i].v,
                     cnt: live ? `${n.n} · ${fmtVotes(n.w)}` : `${p24[i].n} counties`,
-                    tip: ttl(esc(d.t) + ": " + esc(d.lab(d.cat ? d.cat[i] : i)), [ ...live ? [ [ "Tonight", `${pmar(n.v)} <span class="muted">vs the average county in its race</span>` ] ] : [], [ "2020 → 2024", pmar(p24[i].v) ], [ "2016 → 2020", pmar(p20[i].v) ], ...live ? [ [ "Finished counties", String(n.n) ], [ "Votes counted", fmtVotes(n.w) ] ] : [ [ "Counties", String(p24[i].n) ] ] ], live ? "Each county’s move since the 2024 presidential vote, minus the average move of the finished counties in the same race, vote-weighted. The past rows: the same counties in earlier elections, against the same set of finished counties." + (thin ? " Too few votes yet to read much into." : "") : "No county has finished counting yet. These are the same groups in the last two presidential elections, each county against its state’s average.")
+                    tip: ttl(esc(d.t) + ": " + esc(d.lab(d.cat ? d.cat[i] : i)), [ ...live ? [ [ "Tonight", pmar(n.v) ] ] : [], [ "2020 → 2024", pmar(p24[i].v) ], [ "2016 → 2020", pmar(p20[i].v) ], ...live ? [ [ "Finished counties", String(n.n) ], [ "Votes counted", fmtVotes(n.w) ] ] : [ [ "Counties", String(p24[i].n) ] ] ], live ? "Swing since the 2024 presidential vote, against the average finished county in the same race (vote-weighted). The earlier rows: the same counties in past elections." + (thin ? " Too few votes yet to read much into." : "") : "No county has finished counting yet. These are the same groups in the last two presidential elections, each county against its state’s average.")
                 };
             }))
         };
@@ -9125,8 +9146,15 @@ function ratersOf(r) {
 function rateTip(r) {
     const b = beforeOf(r), rt = ratersOf(r), lp = isSafeO(r) ? oLP(SAFEO()[r]) : r === "NE" ? "I" : "D", lc = lp === "I" ? "i" : "d";
     const ch = p => p == null ? '<span class="muted">–</span>' : p >= .5 ? `<span class="${lc}">${lp} ${smPct(p)}</span>` : `<span class="r">R ${smPct(1 - p)}</span>`;
-    const rows = [ [ "Before results", b ? `Model ${b.model == null && isSafeO(r) ? '<span class="muted">not modelled</span>' : ch(b.model)} · Market ${ch(b.market)}` : '<span class="muted">not yet read</span>' ] ];
-    if (rt) rows.push([ "Forecasters", `${esc(rt.lab)} <span class="muted">(middle of ${rt.n}: ${rt.pick.map(esc).join(" · ")})</span>` ]);
+    const rows = [ [ "Before results", b ? `model ${b.model == null && isSafeO(r) ? '<span class="muted">not modelled</span>' : ch(b.model)} · market ${ch(b.market)}` : '<span class="muted">not yet read</span>' ] ];
+    if (rt) {
+        const by = [];
+        for (const p of rt.pick) {
+            const i = p.indexOf(" "), who = p.slice(0, i), lab = p.slice(i + 1), g = by.find((x => x[0] === lab));
+            if (g) g[1].push(who); else by.push([ lab, [ who ] ]);
+        }
+        rows.push([ "Forecasters", `${esc(rt.lab)} <span class="muted">· middle of ${rt.n}</span>` ], [ "", `<span class="muted">${by.map((([lab, w]) => esc(w.join(", ") + " " + lab))).join(" · ")}</span>` ]);
+    }
     return rows;
 }
 
@@ -9380,7 +9408,7 @@ function decRow() {
     const rs = decRaces();
     const lefts = rs.map(raceLeft), known = lefts.filter((v => v != null)), left = known.reduce(((a, b) => a + b), 0);
     const nm = r => esc((info[r] || {}).name || STNAME[r] || r), c = r => (M.counts || {})[r] || {};
-    const tip = rs.length ? ttl("Races that could tip control", rs.map(((r, i) => [ nm(r), `${pct(T[r])} <span class="muted">tipping · ${c(r).counted > 0 ? pct(c(r).frac_counted) + " counted · " : ""}${lefts[i] == null ? "" : fmtV(lefts[i]) + " to count"}</span>` ])), "The fewest uncalled races that together carry 90% of the chance of being the race that tips control (the model's tipping point: in each simulation, the race that gives Democrats their 51st seat or holds them to 50; in a race's Chance hover in the table), outlined in the strip below, and the votes still to count in them. A race called while among them keeps a black line round its cell. The chances add up to 100% across the open races while control is still open, however likely one side is: the chance of control says how much doubt is left.") : tipT("Races that could tip control", ctrlSettled() ? `None: control is all but settled (the model gives ${(M.seat.p_control >= .5 ? "Democrats " : "Republicans ") + pctC(Math.max(M.seat.p_control, 1 - M.seat.p_control))}, past the 99.5% it calls a race at).` : "None: control rests on races already called.");
+    const tip = rs.length ? '<div class="tt-h">Races that could tip control</div><table class="tt tt4"><tr class="th"><td></td><td>tipping</td><td>counted</td><td>to count</td></tr>' + rs.map(((r, i) => `<tr><td>${nm(r)}</td><td>${pct(T[r])}</td><td>${c(r).counted > 0 ? pct(c(r).frac_counted) : "–"}</td><td>${lefts[i] == null ? "–" : fmtV(lefts[i])}</td></tr>`)).join("") + '</table><div class="tt-n">The fewest open races that together carry 90% of the chance of tipping control: the race giving Democrats their 51st seat, or holding them to 50. Outlined in the strip below.</div>' : tipT("Races that could tip control", ctrlSettled() ? `None: control is all but settled (the model gives ${(M.seat.p_control >= .5 ? "Democrats " : "Republicans ") + pctC(Math.max(M.seat.p_control, 1 - M.seat.p_control))}, past the 99.5% it calls a race at).` : "None: control rests on races already called.");
     return `<div class="nt-l nt-dec"${dtip(tip)}><span>Could tip</span><b>${rs.length ? rs.length + (rs.length === 1 ? " race" : " races") : "none"}</b>${!rs.length && ctrlSettled() ? '<span class="nt-r muted">control all but settled</span>' : ""}<span class="nt-r muted">${rs.length && known.length ? fmtV(left) + " votes left in them" : ""}</span></div>`;
 }
 
@@ -9969,7 +9997,7 @@ function renderHealth() {
         const t = String(w || ""), i = t.indexOf(". ");
         return i > 0 ? t.slice(0, i + 1) : t;
     };
-    const list = probs.slice(0, 4).map((p => `<div class="tt-src">${dot(p.sev === "bad" ? "--serious" : "--text-3")}<b>${esc(srcName(p.h.id))}</b> ${esc(why1(p.why))}` + ` <span class="muted">· ${p.h.age_ok == null ? "never answered yet" : "last good " + ago(p.h.age_ok) + " ago"}</span></div>`)).join("") + (probs.length > 4 ? `<div class="tt-src muted">and ${probs.length - 4} more</div>` : "");
+    const list = probs.slice(0, 3).map((p => `<div class="tt-src">${dot(p.sev === "bad" ? "--serious" : "--text-3")}<b>${esc(srcName(p.h.id))}</b> ${esc(why1(p.why))}` + ` <span class="muted">· ${p.h.age_ok == null ? "never answered yet" : "last good " + ago(p.h.age_ok) + " ago"}</span></div>`)).join("") + (probs.length > 3 ? `<div class="tt-src muted">and ${probs.length - 3} more</div>` : "");
     PILLT.src = tipT("Sources", `${H.length} sources · ${ok} answering` + (bad.length ? ` · <span style="color:var(--serious)">${bad.length} failing</span>` : "") + (wait.length ? ` · ${wait.length} waiting` : "") + list, (bad.length ? "A failing results feed keeps its last good counts; silence is never read as zero new votes. " : "") + "Every source: Log and sources (View menu, key 4).");
     pillTip();
     renderSrcTable(H);
@@ -10101,7 +10129,9 @@ function renderSrcTable(H) {
         const cell = (st, kind, fs) => {
             if (!fs.length) return `<td class="muted"${dtip(tipT(esc((st ? (STNAME[st] || st) + " · " : "") + kind), kind === "State site" ? "No feed from the state's own site; CivicAPI carries the count." : "No feed."))}>–</td>`;
             const w = Math.min(...fs.map(sev)), ok = minA(fs, "age_ok");
-            return `<td${dtip(ttl(esc((st ? (STNAME[st] || st) + " · " : "") + kind), fs.map((h => [ esc(srcName(h.id).replace(/^[^·]*·\s*/, "")), `${h.error ? problem(h).sev === "bad" ? '<span style="color:var(--serious)">failing: ' + esc(problem(h).why) + "</span>" : "waiting" : "answering"} · data changed ${h.age_change == null ? "–" : ago(h.age_change) + " ago"}` ])), "Dot: the worst of its feeds (green answering, grey waiting, orange failing). Time: since the last answer. Click for every feed."))}>${dot(w)}<span>${ok == null ? "–" : agoS(ok)}</span></td>`;
+            const fname = h => esc(srcName(h.id).replace(/^[^·]*·\s*/, ""));
+            const why = fs.filter((h => h.error && problem(h).sev === "bad")).map((h => `<div class="tt-why"><b>${fs.length > 1 ? fname(h) + ": " : ""}failing.</b> ${esc(problem(h).why)}</div>`)).join("");
+            return `<td${dtip(ttl(esc((st ? (STNAME[st] || st) + " · " : "") + kind), fs.map((h => [ fname(h), `${h.error ? problem(h).sev === "bad" ? '<span style="color:var(--serious)">failing</span>' : "waiting" : "answering"} <span class="muted">· changed ${h.age_change == null ? "–" : ago(h.age_change) + " ago"}</span>` ]))) + why + '<div class="tt-n">Dot: the worst of its feeds. Time: since the last answer. Click for every feed.</div>')}>${dot(w)}<span>${ok == null ? "–" : agoS(ok)}</span></td>`;
         };
         const parts = st => {
             const xs = byState[st] || [];
@@ -10702,7 +10732,7 @@ function renderAge() {
     const el = $("#age"), h = AGE0.dataset.tip || "";
     const at = M && M.generated ? SNAP ? (M.clock || {}).now || M.generated : FAKE && ST && ST.running && ST.sim_now ? ST.sim_now : ((M.clock || {}).now || M.generated) + (FAKE ? 0 : Math.max(0, Date.now() / 1e3 - M.generated)) : null;
     const tt = at ? tFI(at).replace(/ (AM|PM)$/, " $1") : "";
-    const t = at ? `${SNAP ? "snapshot " : ""}${tt}<span class="et">${TZL()}</span>` : "";
+    const t = at ? `${SNAP ? "updated " : ""}${tt}<span class="et">${TZL()}</span>` : "";
     if (el._t !== t) {
         el.innerHTML = t;
         el._t = t;
@@ -10783,7 +10813,7 @@ function renderAge0() {
     const el = AGE0;
     if (SNAP) {
         const at = M && ((M.clock || {}).now || M.generated);
-        el.textContent = at ? "snapshot " + tFI(at) : "";
+        el.textContent = at ? "updated " + tFI(at) : "";
         delete el.dataset.tip;
         return;
     }
@@ -10794,7 +10824,7 @@ function renderAge0() {
     }
     const now = ((M.clock || {}).now || M.generated) + (FAKE ? 0 : Math.max(0, Date.now() / 1e3 - M.generated));
     const rerun = [ "Model last rerun", fmtSec.format(new Date((FAKE ? (M.clock || {}).now || M.generated : M.generated) * 1e3)) ];
-    const foot = TZW() + ". The model reruns whenever a feed or market price changes, at least once a minute; market prices do not count as new data here.";
+    const foot = TZW() + ". The model reruns on every new feed or price, at least once a minute; prices do not count as new data here.";
     if (M.results_at) {
         el.textContent = "votes " + ago(Math.max(0, now - M.results_at)) + " ago";
         el.dataset.tip = ttl("Newest votes in a Senate race", [ [ "Race", esc(((M.info || {})[M.results_race] || {}).name || M.results_race) ], [ "Came in", `${fmtSec.format(new Date(M.results_at * 1e3))} <span class="muted">· ${ago(Math.max(0, now - M.results_at))} ago</span>` ], rerun ], foot);
