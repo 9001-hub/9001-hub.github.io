@@ -41,7 +41,7 @@ function pubStale() {
 }
 // a newer version of this page on the site: reload, at once if the page is in view, else when it next comes into view; at
 // most once per version every 10 minutes (a browser may hand back its cached copy for up to 10 minutes)
-var PAGE_BUILD = 'c1a8971e9b60', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
+var PAGE_BUILD = 'd41c687355fc', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
 function pubVersion(want) {
   try {
     if (!want || want === PAGE_BUILD || pubVersion.waiting) return;
@@ -1167,7 +1167,8 @@ body:not(.tabs) #night .nt-comb { flex: none; height: 50px; }
 #night .nt-r { margin-left: auto; font-size: 12px; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 #night .nt-s { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 2px; height: 16px; flex: none; }
 #night .nt-s i { display: block; position: relative; background: var(--surface-2); border-radius: 2px; cursor: pointer; overflow: hidden; }
-#night .nt-s i:hover { box-shadow: 0 0 0 1.5px var(--text); z-index: 1; }
+#night .nt-s i:hover { z-index: 1; }
+#night .nt-s i:hover::before { content: ''; position: absolute; inset: 0; border: 1.5px solid var(--text); border-radius: 2px; z-index: 2; pointer-events: none; }      
 #night .nt-count { height: 22px; position: relative; }
 #night .nt-comb { height: auto; flex: 1 1 auto; min-height: 28px; max-height: 50px; position: relative; }      
 #night .nt-strip { margin-top: 0; padding-top: 12px; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: flex-start; min-height: 0; position: relative; }                        
