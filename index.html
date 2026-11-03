@@ -41,7 +41,7 @@ function pubStale() {
 }
 // a newer version of this page on the site: reload, at once if the page is in view, else when it next comes into view; at
 // most once per version every 10 minutes (a browser may hand back its cached copy for up to 10 minutes)
-var PAGE_BUILD = '31900dd84531', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
+var PAGE_BUILD = 'c1a8971e9b60', PUB_NOTE = 'Unofficial projections, not affiliated with any news organisation or forecaster; official results come from state election offices.';
 function pubVersion(want) {
   try {
     if (!want || want === PAGE_BUILD || pubVersion.waiting) return;
@@ -193,6 +193,27 @@ span.statpill { color: var(--text-2); cursor: default; }
 .vnote { font-size: 12px; color: var(--text-3); }
 
 .vside { position: relative; min-width: 0; font-size: 13px; }
+
+.vmap { position: relative; }
+#vera-sw { display: inline-flex; gap: 10px; align-items: baseline; font-size: 12px; } #vera-sw[hidden] { display: none; }
+#vera-sw .twl { color: var(--text-3); margin-right: 2px; }
+#vera-sw button { background: none; border: 0; padding: 2px 0; font: inherit; font-size: 12px; color: var(--text-3); cursor: pointer; position: relative; }
+#vera-sw button:hover { color: var(--text); } #vera-sw button.on { color: var(--text); font-weight: 600; }
+#vera-sw button + button::before { content: '·'; position: absolute; left: -7px; color: var(--text-3); font-weight: 400; }
+#vera-sw button[data-t]::after { content: attr(data-t); display: block; height: 0; overflow: hidden; visibility: hidden; font-weight: 600; }
+.vpast-tag { margin-left: 10px; font-size: 12px; color: var(--text-3); white-space: nowrap; } .vpast-tag[hidden] { display: none; }
+.vempty-msg, .vside-empty { display: none; }
+#vote-card.vempty .vempty-msg { display: flex; flex-direction: column; align-items: center; gap: 6px; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: min(380px, 86%); text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 18px; font-size: 13px; line-height: 1.45; color: var(--text-2); box-shadow: 0 2px 10px rgba(0,0,0,.08); z-index: 2; }
+#vote-card.vempty .vempty-msg b { color: var(--text); font-size: 15px; }
+#vote-card.vempty #vmap-svg path.cty { fill: var(--surface-2); }
+#vote-card.vempty #vmap-svg circle, #vote-card.vempty #vmap-svg text { display: none; }
+#vote-card.vempty #vmap-svg { pointer-events: none; }
+#vote-card.vempty .vkey, #vote-card.vempty .vsearch, #vote-card.vempty #vmap-title, #vote-card.vempty #trview { visibility: hidden; }
+#vote-card.vempty #vmode { opacity: .4; pointer-events: none; }
+#vote-card.vempty .vside-in, #vote-card.vempty #vtab, #vote-card.vempty #vside-head { display: none; }
+#vote-card.vempty .vside-empty { display: block; padding: 4px 0 0 18px; color: var(--text-3); font-size: 13px; }
+.vpast-tag .link { font-size: 12px; }
+@media (max-width: 640px) { #vmap-head:has(.vpast-tag:not([hidden])) { flex-wrap: wrap; } .vpast-tag { flex-basis: 100%; order: 3; margin: 2px 0 0; white-space: normal; } }
 .vside-in { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden auto; }
 .vside-in > * { flex: none; }
 .vside-in .sfill { flex: 1 1 0; min-height: 0; overflow: hidden auto; overscroll-behavior: contain; }
@@ -1422,17 +1443,18 @@ body.look-light #races-card.tgrid > .vband { padding-right: 16px; }
   <div id="sec-vote" class="sec">
   <div class="card" style="margin-top:12px" id="vote-card">
     <div class="vband" id="vband"><h2 class="vb-k" data-note="swing">Measure</h2><span class="seg" id="vmode" role="radiogroup" aria-label="Measure"></span>
-      <span class="vb-d"><span class="seg" id="trview" hidden><button data-tv="rate">Rate</button><button data-tv="change">Change</button></span><span id="vmap-title" class="vtitle"></span></span></div>
+      <span class="vb-d"><span class="seg" id="trview" hidden><button data-tv="rate">Rate</button><button data-tv="change">Change</button></span><span id="vmap-title" class="vtitle"></span><span id="vera-sw" hidden><span class="twl">Showing</span><button data-e="now" data-t="Tonight">Tonight</button><button data-e="past" data-t="2024 election">2024 election</button></span></span></div>
     <div class="vgrid">
       <div class="vmap">
-        <div class="card-head" id="vmap-head"><h2 id="vplace">United States</h2><div class="vsearch"><input id="vq" type="search" placeholder="Find a county or place" autocomplete="off" spellcheck="false" aria-label="Find a county, or a city or town in one" aria-controls="vq-list"><div class="vq-list" id="vq-list" role="listbox" hidden></div></div></div>
+        <div class="card-head" id="vmap-head"><h2 id="vplace">United States</h2><span id="vpast-tag" class="vpast-tag" hidden>2024 presidential election · past results · <button class="link" id="vpast-back">back to tonight</button></span><div class="vsearch"><input id="vq" type="search" placeholder="Find a county or place" autocomplete="off" spellcheck="false" aria-label="Find a county, or a city or town in one" aria-controls="vq-list"><div class="vq-list" id="vq-list" role="listbox" hidden></div></div></div>
         <svg id="vmap-svg" viewBox="0 0 975 610" role="img" aria-label="County map"></svg>
+        <div class="vempty-msg" id="vempty-msg"><b>No counties have reported yet</b><span id="vempty-t"></span><button class="link" id="vempty-go">See the 2024 election meanwhile</button></div>
         <div class="vkey">
           <div id="vmap-legend" class="vlegend"></div>
           <div id="swing-sub" class="vnote"></div>
         </div>
       </div>
-      <div class="vside"><div class="vside-in"><div class="card-head" id="vside-head"></div><div class="vside-body" id="vside"></div><div class="vside-body" id="vpattern" hidden><div class="vtrow"><h3 class="crumb"><button class="link crumb-root" id="vpat-back">By group</button><span class="crumb-sep">→</span><span class="crumb-leaf" id="vpat-h">The model’s county pattern</span></h3></div><div id="swing"></div></div></div></div>
+      <div class="vside"><div class="vside-empty">The breakdown by group and by county fills in as counties report.</div><div class="vside-in"><div class="card-head" id="vside-head"></div><div class="vside-body" id="vside"></div><div class="vside-body" id="vpattern" hidden><div class="vtrow"><h3 class="crumb"><button class="link crumb-root" id="vpat-back">By group</button><span class="crumb-sep">→</span><span class="crumb-leaf" id="vpat-h">The model’s county pattern</span></h3></div><div id="swing"></div></div></div></div>
     </div>
     <div class="vtabs" id="vtab" role="tablist" aria-label="Groups of counties" hidden></div>
   </div>
@@ -1473,6 +1495,7 @@ body.look-light #races-card.tgrid > .vband { padding-right: 16px; }
       </dd>
       <dt id="note-swing">Counties: how the vote is moving</dt>
       <dd>
+        <p>Until the first county reports, this view is empty; "Showing Tonight · 2024 election" at its top right shows the 2024 presidential election meanwhile (past results, not a projection: the swing from 2020, the margins, the flips and the turnout). Once counties report, the view is tonight's.</p>
         <p>Every county the night reports, in any race the service reads: the 17 Senate races the model follows and, from CivicAPI, the governor and other Senate races, plus the House races of the five states with no statewide race (Indiana, Missouri, North Dakota, Utah, Washington). Each county shows its Senate race where there is one, else governor, other Senate or House. Maine and New Hampshire count the Senate race by town, so their counties show another race where CivicAPI reports one by county. Alaska (no counties; it counts by state house district) and Connecticut (results by town and old county, census figures by its new planning regions) are drawn as one unit each, the whole state: on the map and in a county's card, but not in the groups, the pattern or the surprises, which need several counties in a race.</p>
         <p>The box above the map finds a county, a state, or a city or town (29,700 of them, each opening the county it lies in; a place in several counties opens the one named after it, else the most populous); zoomed into a state, it looks in that state only (name another state to look there); press / from any tab to type in it. One switch, the measure, sets the whole tab: the map's colours and the panel beside it. Opening a state (Counties → in a race, a race in the Still out list, or a county's card) zooms the map to it: the title becomes the trail United States → the state, its first part goes back, and the panel beside shows the county table of the state's Senate race. Swing: each finished county's move since the 2024 presidential vote (before results, 2020 → 2024). Margin: the margin so far (before results, 2024). Flips: the finished counties whose leader is not the party that won them for president in 2024, solid in the new leader's colour, the rest pale in their own (before results, the counties that flipped from 2020 to 2024); By county lists them each way, largest first; By group gives each group's share of its counties flipped each way (counties, not people). Still out: the share of each county's vote still to count (in the list, each Senate race's votes still out). Turnout rate (the share of a county's citizens of voting age who voted) and Turnout change (against the last election, relative to the rest of the race; before results 2024 against 2020, relative to the state), and Surprise once counties finish. The panel has two views. <b>By county</b>: the counties (or races) behind the measure, ranked: the biggest movers against their race, the largest counts so far, each Senate race's votes still out (with the make-up effect of a modelled race's uncounted counties; for the safe seats, against an estimated expected vote), the turnout furthest from its race, or the surprises; click one for its card. <b>By group</b>: each trait as a small column chart, its groups in order from left to right (the lowest share to the highest; big cities to rural), each column that group's figure on the measure (up: more Democratic, or higher turnout; for Still out, the share still out). A trait opens its groups as rows (click a row to highlight its counties on the map; the rest are drawn like counties with no data) and the chart of every county by that trait, where the short grey line across each group's band is its vote-weighted average: click another group's band to switch to it, the chosen one again for all groups, or a dot for its county. With all groups, the line is the trend across the trait (a vote-weighted local linear fit; for type of place, the groups' averages joined up) and, dashed behind it, the same line for the earlier cycle over the same counties (swing: 2020→2024 on the night, 2016→2020 before results; margin: 2024 on the night, 2020 before results), so a change in the pattern shows as the two lines parting. At the foot of By group, the model's own county pattern (below), which does not change with the measure. Before results the chart and its list cover every county in the country, each against its own state.</p>
         <p><b>Who is moving.</b> Counties are grouped by type of place (the CDC's 2023 urban–rural classes: big cities, their suburbs, medium and small metros, small towns, rural), education, race and ethnicity, foreign-born share, income, age, religion (2020 US Religion Census; religious bodies grouped into traditions approximately) and density. For each group the bar is its finished counties' move since the 2024 presidential vote, minus the average move of the finished counties in the same race, weighted by votes: a race's own candidates and its statewide swing drop out, leaving who moves more or less than the rest. Two marks in a lighter grey show the earlier four-year steps of the same counties: the hollow circle is always the step before the bar, the diamond the one before that. On the night the bar is tonight, the circle 2020→2024 and the diamond 2016→2020, each against the same finished counties; so a bar beyond the circle is a move that is speeding up, one short of it a move that is fading. Before any county finishes, the bar is 2020→2024 and the circle 2016→2020, each against the state; the map shows 2020→2024. Only finished counties count, because a part-counted county leans to whichever ballots it counted first. These are counties, not voters: Hispanic counties moving left does not mean Hispanic voters did.</p>
@@ -4147,6 +4170,8 @@ function renderGroupsTurnout(live) {
 
 let VMAP = null, VPATHS = {};
 
+let VPAST = false;
+
 const VTABS = [ [ "swing", "Who is moving", "How each group’s finished counties swung since 2024, against the rest of their race. Before results: the same groups in the last two presidential elections." ], [ "pattern", "Other things equal", "The model’s county pattern: how much each trait moves a county’s swing with the others held equal, and how the votes still out differ from those counted." ], [ "out", "Still to count", "Where the votes still out are, group by group, against those already counted. (Each race’s votes out and make-up effect: colour the map by Still out.)" ], [ "turnout", "Turnout", "Votes for the two main candidates in finished counties against 2024, relative to the rest of their race." ] ];
 
 $("#vtab").innerHTML = VTABS.map((([k, t, d]) => `<button role="tab" data-v="${k}"${dtip(tipT(esc(t), esc(d)))}>${t}</button>`)).join("");
@@ -4820,6 +4845,16 @@ function renderMap() {
     if (!VMAP) return;
     palette();
     const live = VSTATS.used.length > 0 || VSTATS.rows.some((x => x.D + x.R > 0));
+    const vEmpty = !live && !VPAST;
+    $("#vote-card").classList.toggle("vempty", vEmpty);
+    const vsw = $("#vera-sw");
+    vsw.hidden = live;
+    for (const b of vsw.querySelectorAll("button")) b.classList.toggle("on", b.dataset.e === "past" === VPAST);
+    $("#vpast-tag").hidden = live || !VPAST;
+    if (vEmpty) {
+        const cl = Object.values(M.close || {}).filter(Boolean), fc = cl.length ? Math.min(...cl) : null;
+        $("#vempty-t").textContent = (fc ? `From ${tHM(fc)}, when the first polls close, tonight's` : "Tonight's") + " count fills in here, county by county, against 2024.";
+    }
     const mode = mapMode(live);
     const PRE_LAB = {
         swing: "Swing 2020 → 24",
@@ -4992,6 +5027,23 @@ $("#trview").addEventListener("click", (ev => {
 $("#trview").querySelector('[data-tv="rate"]').dataset.tip = tipT("Rate", "The share of each county’s citizens of voting age who voted (Census ACS 2020–24 estimate).");
 
 $("#trview").querySelector('[data-tv="change"]').dataset.tip = tipT("Change", "Against the last election, relative to the rest of the race (before results: 2024 against 2020, relative to the state).");
+
+$("#vera-sw").addEventListener("click", (ev => {
+    const b = ev.target.closest("[data-e]");
+    if (!b) return;
+    VPAST = b.dataset.e === "past";
+    renderVote(true);
+}));
+
+$("#vempty-go").addEventListener("click", (() => {
+    VPAST = true;
+    renderVote(true);
+}));
+
+$("#vpast-back").addEventListener("click", (() => {
+    VPAST = false;
+    renderVote(true);
+}));
 
 $("#vmode").addEventListener("click", (ev => {
     const b = ev.target.closest("[data-m]");
